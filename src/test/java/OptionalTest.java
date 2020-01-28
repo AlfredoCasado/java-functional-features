@@ -29,7 +29,7 @@ public class OptionalTest {
     public void creating_and_optional_with_value() {
         Optional<String> canBeAString = Optional.of("hello world");
         assertThat(canBeAString.isPresent()).isTrue();
-        assertThat(canBeAString.get()).isEqualTo("hello wod");
+        assertThat(canBeAString.get()).isEqualTo("hello world");
     }
 
     @Test
