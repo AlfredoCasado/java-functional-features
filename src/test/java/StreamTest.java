@@ -11,11 +11,11 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
 
-class Student {
+class Apprentice {
     private String name;
     private float averageGrade;
 
-    public Student(String name, float averageGrade) {
+    public Apprentice(String name, float averageGrade) {
         this.name = name;
         this.averageGrade = averageGrade;
     }
@@ -32,9 +32,9 @@ class Student {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return Float.compare(student.averageGrade, averageGrade) == 0 &&
-                Objects.equals(name, student.name);
+        Apprentice apprentice = (Apprentice) o;
+        return Float.compare(apprentice.averageGrade, averageGrade) == 0 &&
+                Objects.equals(name, apprentice.name);
     }
 
     @Override
@@ -112,22 +112,22 @@ public class StreamTest {
 
     @Test
     public void stream_collect() {
-        List<Student> students = List.of(
-                new Student("alvaro", 7),
-                new Student("sonia", 8),
-                new Student("abascal", 1)
+        List<Apprentice> apprentices = List.of(
+                new Apprentice("alvaro", 7),
+                new Apprentice("sonia", 8),
+                new Apprentice("abascal", 1)
         );
 
-        Double averageAll = students.stream()
-                .collect(Collectors.averagingDouble(Student::getAverageGrade));
+        Double averageAll = apprentices.stream()
+                .collect(Collectors.averagingDouble(Apprentice::getAverageGrade));
 
-        Double averagePassed = students.stream()
+        Double averagePassed = apprentices.stream()
                 .filter(s -> s.getAverageGrade() >= 5)
-                .collect(Collectors.averagingDouble(Student::getAverageGrade));
+                .collect(Collectors.averagingDouble(Apprentice::getAverageGrade));
 
-        Double averageSuspended = students.stream()
+        Double averageSuspended = apprentices.stream()
                 .filter(s -> s.getAverageGrade() < 5)
-                .collect(Collectors.averagingDouble(Student::getAverageGrade));
+                .collect(Collectors.averagingDouble(Apprentice::getAverageGrade));
 
         assertThat(averageAll).isEqualTo(5.33, within(0.01));
         assertThat(averagePassed).isEqualTo(7.5, within(0.01));
@@ -136,17 +136,17 @@ public class StreamTest {
 
     @Test
     public void stream_collect_partition() {
-        List<Student> students = List.of(
-                new Student("alvaro", 7),
-                new Student("sonia", 8),
-                new Student("abascal", 1)
+        List<Apprentice> apprentices = List.of(
+                new Apprentice("alvaro", 7),
+                new Apprentice("sonia", 8),
+                new Apprentice("abascal", 1)
         );
 
-        Map<Boolean, List<Student>> groupedStudents = students.stream()
-                .collect(Collectors.partitioningBy(student -> student.getAverageGrade() >= 5));
+        Map<Boolean, List<Apprentice>> groupedStudents = apprentices.stream()
+                .collect(Collectors.partitioningBy(apprentice -> apprentice.getAverageGrade() >= 5));
 
-        List<Student> pass = groupedStudents.get(true);
-        List<Student> not_pass = groupedStudents.get(false);
+        List<Apprentice> pass = groupedStudents.get(true);
+        List<Apprentice> not_pass = groupedStudents.get(false);
 
         assertThat(pass).hasSize(2);
         assertThat(not_pass).hasSize(1);
@@ -154,19 +154,19 @@ public class StreamTest {
 
     @Test
     public void stream_collect_grouping() {
-        List<Student> students = List.of(
-                new Student("alvaro", 10),
-                new Student("sonia", 10),
-                new Student("abascal", 1)
+        List<Apprentice> apprentices = List.of(
+                new Apprentice("alvaro", 10),
+                new Apprentice("sonia", 10),
+                new Apprentice("abascal", 1)
         );
 
-        Map<Float, List<Student>> groupedStudents = students.stream()
-                .collect(Collectors.groupingBy(student -> student.getAverageGrade()));
+        Map<Float, List<Apprentice>> groupedStudents = apprentices.stream()
+                .collect(Collectors.groupingBy(apprentice -> apprentice.getAverageGrade()));
 
-        List<Student> good_students = groupedStudents.get(10f);
-        List<Student> bad_studewnts = groupedStudents.get(1f);
+        List<Apprentice> good_apprentices = groupedStudents.get(10f);
+        List<Apprentice> bad_studewnts = groupedStudents.get(1f);
 
-        assertThat(good_students).hasSize(2);
+        assertThat(good_apprentices).hasSize(2);
         assertThat(bad_studewnts).hasSize(1);
     }
 
@@ -177,16 +177,17 @@ public class StreamTest {
 
         assertThat(sum).isEqualTo(6);
 
-        List<Student> students = List.of(
-                new Student("alvaro", 10),
-                new Student("sonia", 8),
-                new Student("abascal", 1)
+        List<Apprentice> apprentices = List.of(
+                new Apprentice("alvaro", 10),
+                new Apprentice("sonia", 8),
+                new Apprentice("abascal", 1)
         );
 
-        Student masListo = students.stream()
-                .reduce(new Student("", 0), (acc, student) -> student.getAverageGrade() > acc.getAverageGrade() ? student : acc);
+        Apprentice masListo = apprentices.stream()
+                .reduce(new Apprentice("", 0), (acc, apprentice) -> apprentice.getAverageGrade() > acc.getAverageGrade() ? apprentice : acc);
 
-        assertThat(masListo).isEqualTo(new Student("alvaro", 10));
+        assertThat(masListo).isEqualTo(new Apprentice("alvaro", 10));
 
     }
+
 }
