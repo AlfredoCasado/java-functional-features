@@ -11,6 +11,11 @@ public class Exercises {
 
     @Test public void
     try_to_do_the_nexts_operations_with_the_political_parties() {
+        // obtener el partido de derechas más votado
+        // PoliticParty.parties.stream() ...
+
+        // obtener el partido de izquierdas menos votado
+
         // pintar los partidos ordenados por número de votos
 
         // pintar los partidos ordenados por el coste en votos de conseguir cada escaño
@@ -22,6 +27,18 @@ public class Exercises {
 
     @Test public void
     sample_solutions() {
+        section("PRIMER PARTIDO DE DERECHAS MÁS VOTADO", () -> {
+            PoliticParty.parties.stream()
+                    .filter((p) -> p.getWing().equals(WING.RIGHT))
+                    .max(Comparator.comparing(PoliticParty::getVotes))
+                    .ifPresent(System.out::println);
+        });
+        section("PRIMER PARTIDO DE IZQUIERDAS MENOS VOTADO", () -> {
+            PoliticParty.parties.stream()
+                    .filter((p) -> p.getWing().equals(WING.LEFT))
+                    .max(Comparator.comparing(PoliticParty::getVotes).reversed())
+                    .ifPresent(System.out::println);
+        });
         section("NUMERO DE VOTOS", () -> {
            PoliticParty.parties.stream()
                    .sorted(Comparator.comparingInt(PoliticParty::getVotes).reversed())
