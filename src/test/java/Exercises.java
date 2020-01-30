@@ -10,7 +10,18 @@ enum WING { LEFT, RIGHT }
 public class Exercises {
 
     @Test public void
-    work_with_streams() {
+    try_to_do_the_nexts_operations_with_the_political_parties() {
+        // pintar los partidos ordenados por número de votos
+
+        // pintar los partidos ordenados por el coste en votos de conseguir cada escaño
+
+        // contar los votos a partidos de izquierda y derecha
+
+        // costo del escaño para la izquierda/derecha
+    }
+
+    @Test public void
+    sample_solutions() {
         section("NUMERO DE VOTOS", () -> {
            PoliticParty.parties.stream()
                    .sorted(Comparator.comparingInt(PoliticParty::getVotes).reversed())
@@ -88,17 +99,11 @@ class PoliticParty {
         this.wing = wing;
     }
 
-    public int getVotes() {
-        return votes;
-    }
+    public int getVotes() { return votes; }
 
-    public WING getWing() {
-        return wing;
-    }
+    public WING getWing() { return wing; }
 
-    public double seatCostInVotes() {
-        return votes/seats;
-    }
+    public double seatCostInVotes() { return votes/seats; }
 
     @Override
     public String toString() {
