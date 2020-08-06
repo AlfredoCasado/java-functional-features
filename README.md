@@ -27,13 +27,13 @@ Son funciones anonimas con la siguiente sintaxis:
     
 ***Parametros***
 
-No es necesario usar parentesis cuando la funciona tenga un solo parametro
-Si la funciona no recibe ningún parametro la sintaxis sera () -> { cuerpo funcion }
+No es necesario usar parentesis cuando la funcion tenga un solo parametro
+Si la funcion no recibe ningún parametro la sintaxis sera () -> { cuerpo funcion }
 No es necesario indicar los tipos de los parametros ya que son inferidos por el compilador
 
 ***Cuerpo***
 
-Si el cuerpo de la función tiene un único parametro no es necesario usar llaves y tampoco
+Si el cuerpo de la función tiene una única instrucción no es necesario usar llaves y tampoco
 es necesario especificar la clausula "return"  
 
 ## Predefined functional interfaces
